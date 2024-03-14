@@ -1,30 +1,30 @@
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/device.h>
-#include <linux/pci.h>
-#include "pcie_drv.h"
+#include <linux/usb.h>
+#include "usb_drv.h"
 
 
-static struct pci_device_id pci_ids[] = {
-{ PCI_DEVICE(DEV_VID, DEV_DID) },
+static struct usb_device_id usb_ids[] = {
+{ USB_DEVICE(DEV_VID, DEV_DID) },
 { 0 }
 };
 
-static int __init dev_probe(struct pci_dev *dev, const struct pci_device_id *id)
+static int __init usb_probe(struct usb_interface *interface, const struct usb_device_id *id)
 {
     int rc = 0;
     return rc;
 }
 
-static void __exit dev_remove(struct pci_dev *dev) 
+static void __exit usb_remove(struct usb_interface *interface) 
 {
     return;
 }
-static struct pci_driver dev_ops = {
+static struct usb_driver dev_ops = {
     .name = DEV_DRIVER_NAME,
-    .id_table = pci_ids,
-    .probe = dev_probe,
-    .remove = dev_remove,
+    .id_table = usb_ids,
+    .probe = usb_probe,
+    .remove = usb_remove,
 };
 
 static int anqi_init(void)
@@ -32,9 +32,9 @@ static int anqi_init(void)
     int rc = 0;
     printk(KERN_INFO"Hello World enter 20240314\n");
 
-    rc = pci_register_driver(&dev_ops);
+    rc = usb_register_driver(&dev_ops);
     if (rc) {
-        printk(KERN_ERR DEV_DRIVER_NAME ": PCI driver registration failed\n");
+        printk(KERN_ERR DEV_DRIVER_NAME ": USB driver registration failed\n");
         goto exit;
     }
 
