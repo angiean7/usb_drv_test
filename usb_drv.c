@@ -24,7 +24,7 @@ static struct usb_driver dev_ops = {
     .name = DEV_DRIVER_NAME,
     .id_table = usb_ids,
     .probe = usb_probe,
-    .remove = usb_remove,
+    .disconnect  = usb_remove,
 };
 
 static int anqi_init(void)
