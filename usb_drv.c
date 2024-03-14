@@ -32,7 +32,7 @@ static int anqi_init(void)
     int rc = 0;
     printk(KERN_INFO"Hello World enter 20240314\n");
 
-    rc = usb_register_driver(&dev_ops);
+    rc = usb_register_driver(&dev_ops, THIS_MODULE, DEV_DRIVER_NAME);
     if (rc) {
         printk(KERN_ERR DEV_DRIVER_NAME ": USB driver registration failed\n");
         goto exit;
