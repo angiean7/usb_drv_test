@@ -16,8 +16,7 @@ static int __init usb_probe(struct usb_interface *interface, const struct usb_de
      
     struct usb_device *pDev = interface_to_usbdev(interface);
     if(!pDev) {
-        DMESG_ERR("Out of memory.\n");
-        goto L_Error;
+        printk(KERN_ERR DEV_DRIVER_NAME ": USB driver registration failed\n");
     }
 
     return errno;
