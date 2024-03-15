@@ -1,1 +1,0 @@
-cmd_/home/inuineko/anqi/usb_drv_test/usb_drv.ko := ld -r -EL  -maarch64elf -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T arch/arm64/module.lds -o /home/inuineko/anqi/usb_drv_test/usb_drv.ko /home/inuineko/anqi/usb_drv_test/usb_drv.o /home/inuineko/anqi/usb_drv_test/usb_drv.mod.o;  true

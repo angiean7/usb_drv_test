@@ -1,1 +1,0 @@
-cmd_/home/inuineko/anqi/usb_drv_test/Module.symvers :=  sed 's/ko$$/o/'  /home/inuineko/anqi/usb_drv_test/modules.order | scripts/mod/modpost -m -a    -o /home/inuineko/anqi/usb_drv_test/Module.symvers -e -i Module.symvers -T - 
