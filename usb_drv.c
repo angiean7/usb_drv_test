@@ -12,36 +12,14 @@ static struct usb_device_id usb_ids[] = {
 
 static int __init usb_probe(struct usb_interface *interface, const struct usb_device_id *id)
 {
-    int errno = -ENOMEM;Q
+    int errno = -ENOMEM;
      
-    LedCtrl *pDev = kmalloc(sizeof(LedCtrl), GFP_KERNEL);
+    struct usb_device *pDev = interface_to_usbdev(interface);
     if(!pDev) {
         DMESG_ERR("Out of memory.\n");
         goto L_Error;
     }
-    memset(pDev, 0, sizeof(*pDev)) ;
-    kref_init(&pDev->kref); // 参照カウンタを初期化
-    pDev->pDev = usb_get_dev(interface_to_usbdev(ip)); // USBデバイスがあるか
-    pDev->ip = ip;
 
-    UsbHostInterface *pHostIf = ip->cur_altsetting;
-    // 0番目のエンドポイントを得る．このチューナはBulk-Inのep0が1つしかない（当然，control endpointもlsusbで表示されないが存在はしている）
-    UsbEndpointDescriptor *ep = &pHostIf->endpoint[0].desc;
-    pDev->bulkInEndpointAddr = ep->bEndpointAddress; // エンドポイントのアドレス
-
-    usb_set_intfdata(ip, pDev);
-
-        errno = usb_register_dev(ip, &class); // USBデバイスを登録
-    if(errno) {
-        DMESG_ERR("Not able to get minor for this device.\n");
-        usb_set_intfdata(ip, NULL);
-        goto L_Error;
-    }
-    dev_info(&ip->dev, "[+] LedCtrl: Attached=%d", ip->minor);
-        return 0;
-        
-    L_Error: // エラー
-    if(pDev) kref_put(&pDev->kref, Delete);
     return errno;
 }
 
