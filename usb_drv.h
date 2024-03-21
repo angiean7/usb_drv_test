@@ -1,4 +1,4 @@
-#define DEV_DRIVER_NAME    "FST USB DRV"
+#define DEV_DRIVER_NAME    "SCD USB DRV"
 #define DEV_DID                   (u16)0x0046
 #define DEV_VID                   (u16)0x1679
 
